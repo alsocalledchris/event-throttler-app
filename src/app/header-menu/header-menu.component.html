@@ -1,0 +1,26 @@
+<div class="header clearfix">
+<nav>
+    <ul class="nav nav-pills float-right">
+        <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/Home']">Home</a>
+        </li>
+        <ng-container *ngIf="currentUser"></ng-container>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/contacts']">Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/new-events']">Create new</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="logout()">Logout</a>
+            </li>
+        </ng-container>
+        <ng-container *ngIf="!currentUser">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/login']">Login</a>
+            </li>
+        </ng-container>
+    </ul>
+</nav>
+<h3 class="text-muted">Event Throttler</h3>
+</div>
