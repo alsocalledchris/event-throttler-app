@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { EventComponent } from './event/event.component';
 import { HomeComponent } from './home/home.component';
 import { NewEventComponent } from './new-event/new-event.component';
+import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: '**',

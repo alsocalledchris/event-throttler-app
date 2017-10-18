@@ -1,3 +1,6 @@
-<div class="container">
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in with Google</button>
+<div *ngIf="!currentUser.isLoggedIn" class="container login-container">
+  <button class="btn btn-lg btn-primary btn-block" type="submit"  (click)="loginWithGoogle()">Sign in with Google</button>
+</div>
+<div *ngIf="currentUser.isLoggedIn" class="container login-container">
+    You are already logged in
 </div>

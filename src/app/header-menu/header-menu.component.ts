@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
-import * as firebase from 'firebase/app';
+import { User } from '../model/user';
+
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-header-menu',
@@ -10,16 +13,20 @@ import * as firebase from 'firebase/app';
 })
 export class HeaderMenuComponent implements OnInit {
   
-  public currentUser: firebase.User;
+  public currentUser: User;
+  private subscription: Subscription;
   
-  constructor(private authService: AuthService) { 
-    let vm: HeaderMenuComponent = this;
-    vm.authService.getCurrentUser().then((user: firebase.User) => {
-      vm.currentUser = user;
-    }); 
+  constructor(private authService: AuthService, private router: Router, private zone: NgZone) { 
   }
 
   ngOnInit() {
+    let vm: HeaderMenuComponent = this; 
+    vm.subscription = vm.authService.currentUser
+        .subscribe((user) => {
+          vm.zone.run(() => {
+              vm.currentUser = user;
+          });
+        });   
   }
   
   signOut() {

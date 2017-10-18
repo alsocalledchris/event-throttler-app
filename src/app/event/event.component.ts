@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 
 import { Event } from '../model/event';
+import { User } from '../model/user';
+import { AuthService } from '../services/auth.service';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-event',
@@ -14,23 +17,32 @@ import { Observable } from 'rxjs/Observable';
 export class EventComponent implements OnInit {
 
   private eventCollection: AngularFirestoreCollection<Event>;
+  private subscription: Subscription;
+  public currentUser: User;
   events: Observable<Event[]>;
 
-  constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth) { 
+
+  constructor(private afs: AngularFirestore, private authService: AuthService,  private zone: NgZone) { 
    
   }
 
   ngOnInit() {
     let vm: EventComponent = this;
-    vm.afAuth.auth.onAuthStateChanged(function(user) {
-      if (user) {
-        vm.eventCollection = vm.afs.collection<Event>(`/data/${vm.afAuth.auth.currentUser.uid}/events`);
-        vm.events = vm.eventCollection.valueChanges();
-      } else {
-        // No user is signed in.
-      }
-    });
+    vm.subscription = vm.authService.currentUser
+      .subscribe((user) => {
+        vm.zone.run(() => {
+            vm.currentUser = user;
+            vm.updateShownEvents();
+        });
+      }); 
+  }
 
+  private updateShownEvents(): void {
+    let vm: EventComponent = this;
+    if (vm.currentUser.isLoggedIn) {
+      vm.eventCollection = vm.afs.collection<Event>(`/data/${vm.currentUser.id}/events`);
+      vm.events = vm.eventCollection.valueChanges();
+    } 
   }
 
 }

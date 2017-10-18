@@ -1,62 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../model/user';
 
 import { Observable } from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
 @Injectable()
 export class AuthService {
 
+    private currentUserSource: BehaviorSubject<User> = new BehaviorSubject<User>({ name: "", isLoggedIn: false, id: '' });
+
     constructor(private router: Router, public afAuth: AngularFireAuth) { 
-       
-    }
-
-    public isLoggedIn() : Promise<boolean> {
         let vm: AuthService = this;
-        return new Promise((resolve, reject) => {
-            vm.afAuth.auth.onAuthStateChanged(function(user) {
-                if (user) {
-                    resolve(true);
-                }
-                else {
-                    vm.router.navigate(['/login']);
-                    resolve(false);
-                }
-            });
-          });       
+        vm.afAuth.auth.onAuthStateChanged(function(fbUser) {
+            if (fbUser) {
+                vm.currentUserSource.next({ name: fbUser.displayName, isLoggedIn: true, id: fbUser.uid });
+            } else {
+                vm.currentUserSource.next({ name: "", isLoggedIn: false, id: '' }); 
+            }
+        });
     }
+   
+    public currentUser = this.currentUserSource.asObservable();
 
-    public getCurrentUserId(): Promise<string> {
-        let vm: AuthService = this;
-        return new Promise((resolve, reject) => {
-            vm.afAuth.auth.onAuthStateChanged(function(user) {
-                if (user) {
-                    resolve(vm.afAuth.auth.currentUser.uid);
-                }
-                else {
-                    reject();
-                }
-            });
-          });
-    }
-
-    public getCurrentUser(): Promise<firebase.User> {
-        let vm: AuthService = this;
-        return new Promise((resolve, reject) => {
-            vm.afAuth.auth.onAuthStateChanged(function(user) {
-                if (user) {
-                    resolve(vm.afAuth.auth.currentUser);
-                }
-                else {
-                    reject();
-                }
-            });
-          });
-    }
-
-    signInWithGoogle() {
-        this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    signInWithGoogle() : Promise<any> {
+        return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     }
 
     signOut() {
