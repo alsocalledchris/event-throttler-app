@@ -5,6 +5,9 @@ import { Event } from '../model/event';
 import { EventDto } from '../model/eventDto';
 import { AuthService } from '../services/auth.service';
 import { User } from '../model/user';
+import { MaterialDesignModule } from '../material-design/material-design.module';
+import { MatSnackBar } from '@angular/material';
+
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
@@ -25,7 +28,8 @@ export class NewEventComponent implements OnInit {
   myForm: FormGroup;
   defaultEvent: Event = { active: true, description: '', name: '',number : 1, timePeriod : "day" };
 
-  constructor(private afs: AngularFirestore,  private fb: FormBuilder, private authService: AuthService,  private zone: NgZone) { 
+  constructor(private afs: AngularFirestore,  private fb: FormBuilder, private authService: AuthService,  
+                private zone: NgZone, public snackBar: MatSnackBar) { 
     this.myForm = fb.group(this.defaultEvent); 
   }
 
@@ -51,7 +55,7 @@ export class NewEventComponent implements OnInit {
         .then(() => {
           vm.myForm.reset(this.defaultEvent);
           vm.loading = false;
-          vm.newEventCreated = true;
+          vm.snackBar.open("New Event Throttler Saved", "Ok");
     }); 
   }
 

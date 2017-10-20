@@ -17,6 +17,9 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth.guard';
 import { NewEventComponent } from './new-event/new-event.component';
 import { LoginComponent } from './login/login.component';
+import { MaterialDesignModule } from './material-design/material-design.module';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { LoginComponent } from './login/login.component';
     AngularFireModule.initializeApp(environment.firebase, 'event-throttler'),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialDesignModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

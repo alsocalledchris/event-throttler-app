@@ -1,68 +1,29 @@
-<div class="container" class="new-event-component">
-  <h1 class="display-4">Create new Event</h1>
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" [class.loading]="loading">
+<section class="mat-typography">
+  <h1>Create new Event</h1>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" [class.loading]="loading" class="new-event-form">
     <div class="alert alert-success alert-dismissible fade show" role="alert"  *ngIf="newEventCreated">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true" (click)="newEventCreated = false">&times;</span>
         </button>
         <strong>Event created!</strong> You can now start throttling this event!.
     </div>
-    <div class="form-group row">
-      <label for="name" class="col-sm-2 col-form-label">Name</label>
-      <div class="col-sm-10">
-          <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter name for your event" [formControl]="myForm.controls['name']">
-          <small id="nameHelp" class="form-text text-muted">Name of your event.</small>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="description" class="col-sm-2 col-form-label">Description</label>
-      <div class="col-sm-10">
-          <textarea type="text" class="form-control" id="description" name="description" aria-describedby="descriptionHelp" placeholder="Enter a description for your event" [formControl]="myForm.controls['description']"></textarea>
-          <small id="descriptionHelp" class="form-text text-muted">Descripton of your event.</small>
-      </div>
-    </div>
-    <fieldset class="form-group">
-      <div class="row">
-        <legend class="col-form-legend col-sm-2">Period</legend>
-        <div class="col-sm-10">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="timePeriod" id="timePeriod1" value="day" aria-describedby="timeperiodHelp" [formControl]="myForm.controls['timePeriod']">
-             Day
-            </label>
-          </div>
-          <div class="form-check">
-            <label class="form-check-label"> 
-              <input class="form-check-input" type="radio" name="timePeriod" id="timePeriod2" value="hour" aria-describedby="timeperiodHelp" [formControl]="myForm.controls['timePeriod']">
-              Hour
-            </label>
-          </div>
-          <small id="timeperiodHelp" class="form-text text-muted">Time period for throttling over.</small>
-        </div>
-      </div>
-    </fieldset>
-    <div class="form-group row">
-        <label for="number" class="col-sm-2 col-form-label">Number of events</label>
-        <div class="col-sm-10">
-            <input type="number"  class="form-control" id="number" name="number" aria-describedby="numberHelp" value="1" [formControl]="myForm.controls['number']">
-            <small id="numberHelp" class="form-text text-muted">Number of events to allow per period.</small>
-        </div>
-      </div>
-    <div class="form-group row">
-      <div class="col-sm-2">Active</div>
-      <div class="col-sm-10">
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" name="active" name="active" [formControl]="myForm.controls['active']">
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-sm-10">
-        <button type="submit" class="btn btn-primary create-event">Create</button>
-      </div>
-    </div>
+   
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Name of your event" ngControl="myForm.controls['name']" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Name of your event" ngControl="myForm.controls['name']" >
+    </mat-form-field>
+    <mat-radio-group>
+      <mat-radio-button value="1" name="timePeriod" value="day" selected="true" ngControl="myForm.controls['timePeriod']">Day</mat-radio-button>
+      <mat-radio-button value="2" name="timePeriod" value="hour" ngControl="myForm.controls['timePeriod']">Hour</mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Number of events per period" value="1" name="number" type="number" ngControl="myForm.controls['number']" >
+    </mat-form-field>
+    <mat-checkbox name="active" ngControl="myForm.controls['active']" checked="true">Active</mat-checkbox>
+    
+    <button mat-raised-button color="primary">Submit</button>
   </form> 
-</div>
+</section>
 
