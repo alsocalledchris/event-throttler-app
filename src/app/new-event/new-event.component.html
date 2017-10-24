@@ -1,29 +1,31 @@
-<section class="mat-typography">
-  <h1>Create new Event</h1>
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" [class.loading]="loading" class="new-event-form">
-    <div class="alert alert-success alert-dismissible fade show" role="alert"  *ngIf="newEventCreated">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true" (click)="newEventCreated = false">&times;</span>
-        </button>
-        <strong>Event created!</strong> You can now start throttling this event!.
-    </div>
-   
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Name of your event" ngControl="myForm.controls['name']" >
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Name of your event" ngControl="myForm.controls['name']" >
-    </mat-form-field>
-    <mat-radio-group>
-      <mat-radio-button value="1" name="timePeriod" value="day" selected="true" ngControl="myForm.controls['timePeriod']">Day</mat-radio-button>
-      <mat-radio-button value="2" name="timePeriod" value="hour" ngControl="myForm.controls['timePeriod']">Hour</mat-radio-button>
-    </mat-radio-group>
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Number of events per period" value="1" name="number" type="number" ngControl="myForm.controls['number']" >
-    </mat-form-field>
-    <mat-checkbox name="active" ngControl="myForm.controls['active']" checked="true">Active</mat-checkbox>
+<section class="mat-typography row center-sm">
+  <div class="col-sm-9 col-xs-12 text-area">
+    <h1>Create new Event</h1>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" [class.loading]="loading" class="new-event-form">
+      <div class="alert alert-success alert-dismissible fade show" role="alert"  *ngIf="newEventCreated">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true" (click)="newEventCreated = false">&times;</span>
+          </button>
+          <strong>Event created!</strong> You can now start throttling this event!.
+      </div>
     
-    <button mat-raised-button color="primary">Submit</button>
-  </form> 
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name of your event" ngControl="myForm.controls['name']" >
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name of your event" ngControl="myForm.controls['name']" >
+      </mat-form-field>
+      <mat-radio-group>
+        <mat-radio-button value="1" name="timePeriod" value="day" selected="true" ngControl="myForm.controls['timePeriod']">Day</mat-radio-button>
+        <mat-radio-button value="2" name="timePeriod" value="hour" ngControl="myForm.controls['timePeriod']">Hour</mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Number of events per period" value="1" name="number" type="number" ngControl="myForm.controls['number']" >
+      </mat-form-field>
+      <mat-checkbox name="active" ngControl="myForm.controls['active']" checked="true">Active</mat-checkbox>
+      
+      <button mat-raised-button color="primary">Submit</button>
+    </form>
+</div>
 </section>
 
