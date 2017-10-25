@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MatFormFieldModule, MatInputModule, MatRadioModule, MatCheckboxModule, MatButtonModule,  MatSnackBarModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatRadioModule, 
+        MatCheckboxModule, MatButtonModule,  MatSnackBarModule, 
+        MatToolbarModule, MatIconModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -11,7 +13,9 @@ import { MatFormFieldModule, MatInputModule, MatRadioModule, MatCheckboxModule, 
     MatRadioModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   exports: [
     MatFormFieldModule,
@@ -19,7 +23,9 @@ import { MatFormFieldModule, MatInputModule, MatRadioModule, MatCheckboxModule, 
     MatRadioModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   declarations: []
 })

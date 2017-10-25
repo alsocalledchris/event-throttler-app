@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
 import { User } from '../model/user';
+import { MaterialDesignModule } from '../material-design/material-design.module';
 
 import {Subscription} from 'rxjs/Subscription';
 

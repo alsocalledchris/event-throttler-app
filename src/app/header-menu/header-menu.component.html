@@ -1,26 +1,13 @@
-<div class="header clearfix">
-<nav>
-    <ul class="nav nav-pills float-right">
-        <li class="nav-item">
-            <a class="nav-link active" [routerLink]="['/Home']">Home</a>
-        </li>
-        <ng-container *ngIf="currentUser?.isLoggedIn">
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/events']">Events</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/new-event']">Create new</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" (click)="signOut()">Sign Out</a>
-            </li>
-        </ng-container>
-        <ng-container *ngIf="!currentUser?.isLoggedIn">
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/login']">Login</a>
-            </li>
-        </ng-container>
-    </ul>
-</nav>
-<h3 class="text-muted">Event Throttler</h3>
-</div>
+<mat-toolbar color="primary">
+    <span>Event Throttler</span>
+    <span class="header-spacer"></span> 
+    <mat-icon [routerLink]="['/Home']">home</mat-icon>
+    <ng-container *ngIf="currentUser?.isLoggedIn">
+        <mat-icon [routerLink]="['/events']">event</mat-icon>
+        <mat-icon [routerLink]="['/new-event']">add_circle</mat-icon>
+        <mat-icon (click)="signOut()">exit_to_app</mat-icon>
+    </ng-container>
+    <ng-container *ngIf="!currentUser?.isLoggedIn">
+        <mat-icon [routerLink]="['/login']">perm_identity</mat-icon>
+    </ng-container>
+</mat-toolbar>
